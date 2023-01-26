@@ -3,7 +3,7 @@
     const daily_planner_container = ('<div>');
     const currentDay = $('#currentDay');
 
-    init();
+    
 
     function init(){
         renderHeaderDate();
@@ -55,7 +55,7 @@
         return hourOfDay + day;
     }
     
-
+    init();
     //save tasks
     function saveTasks(input){
         localStorage.setItem('tasks', JSON.stringify(input))
