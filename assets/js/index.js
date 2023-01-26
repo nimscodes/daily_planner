@@ -56,6 +56,30 @@ $(document).ready(function() {
         hourOfDay = hourOfDay ?  hourOfDay : 12;
         return hourOfDay + day;
     }
+    
+
+    //save tasks
+    function saveTasks(input){
+        localStorage.setItem('tasks', JSON.stringify(input))
+    }
+
+    // retreive savedtasks
+    let savedTasks = localStorage.getItem("tasks");
+
+    $('.saveBtn').on('click', function(e){
+        let taskID = $(this).siblings(".future").attr("id");
+        let task = $(this).siblings(".future").val().trim();
+        console.log(taskID, task);
+        let tasksArr = [];
+        if (savedTasks){
+            tasksArr = JSON.parse(savedTasks);
+        }
+        tasksArr.push({'taskID': taskID, 'task': task})
+        saveTasks(tasksArr)
+
+    })
+
+
 
 
    
