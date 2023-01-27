@@ -8,6 +8,8 @@
     function init(){
         renderHeaderDate();
         renderTimeBlocks();
+
+        
     }
     // display header date
     function renderHeaderDate(){
@@ -61,19 +63,38 @@
         localStorage.setItem('tasks', JSON.stringify(input))
     }
 
+    let savedTasks = JSON.parse(localStorage.getItem("tasks"));
+    console.log(savedTasks);
+    function renderTasks(){
+
+        if (savedTasks){
+            savedTasks.forEach(savedTask => {
+                // console.log(savedTask.taskID, savedTask.task);
+                const task = $(`#${savedTask.taskID}`).val();
+                console.log(task);
+            });
+        }
+        
+    }
+
     // retreive savedtasks
-    let savedTasks = localStorage.getItem("tasks");
+   
 
     $('.saveBtn').on('click', function(e){
+        e.preventDefault();
         let taskID = $(this).siblings(".future").attr("id");
         let task = $(this).siblings(".future").val().trim();
-        console.log(taskID, task);
+        //console.log(taskID, task);
         let tasksArr = [];
         if (savedTasks){
-            tasksArr = JSON.parse(savedTasks);
+            tasksArr = savedTasks;
+        }
+        if (task === ""){
+            return;
         }
         tasksArr.push({'taskID': taskID, 'task': task})
-        saveTasks(tasksArr)
+        saveTasks(tasksArr);
+        renderTasks();
 
     })
 
